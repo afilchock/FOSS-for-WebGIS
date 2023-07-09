@@ -46,6 +46,11 @@
     L.geoJSON(resp.data, {
         pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, geojsonMarkerOptions);
+        },
+        onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.name) {
+                layer.bindPopup(feature.properties.name);
+            }
         }
     }).addTo(map).bringToFront();
 });
