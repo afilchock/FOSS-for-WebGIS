@@ -22,9 +22,27 @@ L.control.layers(basemap_layers).addTo(map);
 ///https://axios-http.com/
 ///Live Server
 
+// const f1tracks = axios('../leaflet-map/f1-locations.geojson').then(resp => {
+//   console.log(resp);
+//    L.geoJSON(resp.data, {
+//        style: { color: "#ff0000" }
+//    }).addTo(map);
+// });
+
+//style f1tracks like the pizza places
 const f1tracks = axios('../leaflet-map/f1-locations.geojson').then(resp => {
-    console.log(resp);
+    var geojsonMarkerOptions = {
+        radius: 8,
+        fillColor: "#ff1801",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 1
+    };
+
     L.geoJSON(resp.data, {
-        style: { color: "#ff0000" }
-    }).addTo(map);
-});
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+    }).addTo(map).bringToFront();
+})
