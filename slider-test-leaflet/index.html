@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script src="SliderControl.js"></script>
+    
 
 <!-- MapTiler SDK -->
 <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.js"></script>
@@ -46,7 +48,7 @@
         fillOpacity: 1
     };
 
-    L.geoJSON(resp.data, {
+    let f1layer = L.geoJSON(resp.data, {
         pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, geojsonMarkerOptions);
         },
@@ -56,13 +58,9 @@
             }
         }
     }).addTo(map).bringToFront();
-});
-
-
-var testlayer = L.geoJson(json);
-var sliderControl = L.control.sliderControl({
+    var sliderControl = L.control.sliderControl({
     position: "topright",
-    layer: testlayer
+    layer: f1layer
 });
 
 
@@ -71,7 +69,13 @@ map.addControl(sliderControl);
 
 sliderControl.startSlider();
 
-$('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 22));
+
+//$('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 22));
+});
+
+
+
+
     </script>
   </body>
 </html>
